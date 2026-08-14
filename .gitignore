@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+env/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data — never commit raw data
+data/raw/*
+data/processed/*
+data/external/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/external/.gitkeep
+
+# Models — too large for GitHub
+models/*
+!models/.gitkeep
+*.pt
+*.bin
+*.safetensors
+
+# HuggingFace cache
+.cache/
+transformers_cache/
+
+# Reports — commit manually
+reports/*
+!reports/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
