@@ -10,8 +10,6 @@ env/
 .ipynb_checkpoints/
 
 # Data — never commit raw data
-data/raw/*
-data/processed/*
 data/external/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
