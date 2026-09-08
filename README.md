@@ -1,71 +1,43 @@
-# Amharic Sentiment Analysis Platform
-### Low-Resource NLP with Multilingual Transformers | End-to-End NLP Project
+# Ethiopian Fintech Analytics Platform
+### Credit Risk Modeling & Fraud Detection | End-to-End Data Science Project
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)
-![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-yellow?style=flat-square)
-![Status](https://img.shields.io/badge/Status-In%20Progress-orange?style=flat-square)
+![XGBoost](https://img.shields.io/badge/XGBoost-AUC--ROC%200.8842-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ---
 
 ## Overview
 
-An end-to-end NLP project that fine-tunes a multilingual transformer (Afro-XLM-R) on Amharic social media text to classify sentiment as **positive**, **negative**, or **neutral**. Amharic is a low-resource language spoken by 50+ million people in Ethiopia — making this a meaningful contribution to African NLP research.
-
-The project compares a classical TF-IDF + SVM baseline against a state-of-the-art transformer, with a live deployed web application for real-time inference.
-
----
-
-## Problem Statement
-
-Sentiment analysis tools exist for English, French, Arabic — but almost nothing exists for Amharic. Ethiopian businesses, researchers, and policymakers have no automated way to understand public opinion expressed in the national language. This project builds that tool.
+An end-to-end data science project that builds a **credit risk scoring** system
+for the Ethiopian digital finance ecosystem. Covers the full pipeline — raw data
+ingestion, feature engineering, machine learning, SHAP explainability, interactive
+dashboard, and REST API deployment.
 
 ---
 
-## Dataset
+## Key Findings
 
-**AfriSenti-SemEval 2023 — Amharic Subset**
-- Source: [HuggingFace — shmuhammad/AfriSenti-twitter-sentiment](https://huggingface.co/datasets/shmuhammad/AfriSenti-twitter-sentiment)
-- Language: Amharic (am)
-- Labels: Positive, Negative, Neutral
-- Domain: Twitter/social media text
+- `has_delinquency` (SHAP=1.4215) is the strongest default predictor — dominating all other features
+- Customers with any delinquency history default at **22.27%** vs **2.73%** without — 8x difference
+- High utilization customers default at **21.08%** vs **3.79%** — 5.6x difference
+- Young borrowers (<30) default at **11.73%** — nearly double the overall 6.68% rate
+- Combined delinquency + high utilization → **36.82%** default rate (SQL analysis)
+- SMOTE applied: 14:1 class imbalance fixed to 1:1 (279,862 total samples)
 
 ---
 
-## Project Structure
+## Model Results
 
-```
-amharic-sentiment-analysis/
-│
-├── data/
-│   ├── raw/              # Original AfriSenti dataset files
-│   ├── processed/        # Cleaned and tokenized data
-│   └── external/         # Reference data
-│
-├── notebooks/
-│   ├── 01_EDA.ipynb                    # Dataset exploration
-│   ├── 02_preprocessing.ipynb          # Text cleaning pipeline
-│   ├── 03_baseline_model.ipynb         # TF-IDF + SVM baseline
-│   ├── 04_transformer_finetuning.ipynb # Afro-XLM-R fine-tuning
-│   ├── 05_evaluation.ipynb             # Model comparison
-│   └── 06_error_analysis.ipynb         # Error & attention analysis
-│
-├── src/
-│   ├── data/             # Data loading and preprocessing
-│   ├── models/           # Model training utilities
-│   └── visualization/    # Plotting functions
-│
-├── app/
-│   └── app.py            # Streamlit web application
-│
-├── models/               # Saved model checkpoints
-├── reports/              # Charts, figures, final report
-├── docs/                 # Model card, documentation
-│
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
+| Model | AUC-ROC | F1 | Precision | Recall |
+|---|---|---|---|---|
+| Logistic Regression | 0.8500 | 0.3160 | 0.1990 | 0.7677 |
+| Random Forest | 0.8714 | 0.4356 | 0.3949 | 0.4855 |
+| LightGBM | 0.8727 | 0.3692 | 0.5710 | 0.2728 |
+| **XGBoost ✓** | **0.8842** | 0.3326 | 0.2081 | **0.8284** |
+
+**Best model: XGBoost** — highest AUC-ROC and Recall (catches 82.8% of all defaulters)
 
 ---
 
@@ -73,74 +45,110 @@ amharic-sentiment-analysis/
 
 | Layer | Tools |
 |---|---|
-| Classical NLP | scikit-learn, TF-IDF, SVM |
-| Deep Learning | PyTorch, HuggingFace Transformers |
-| Model | Afro-XLM-R (multilingual transformer) |
-| Deployment | Streamlit, HuggingFace Spaces |
-| Visualization | matplotlib, seaborn |
+| Data Processing | Python, pandas, NumPy, SQLite |
+| Machine Learning | scikit-learn, XGBoost, LightGBM, SMOTE |
+| Explainability | SHAP |
+| Visualization | matplotlib, seaborn, Streamlit |
+| API | FastAPI |
 
 ---
 
-## Results
+## Project Structure
 
-| Model | Macro F1 | Accuracy |
-|---|---|---|
-| TF-IDF + SVM (baseline) | TBD | TBD |
-| Afro-XLM-R (fine-tuned) | TBD | TBD |
-
-*Results will be updated as training progresses.*
-
----
-
-## Live Demo
-
-🚀 **[Try the live app here](#)** *(link will be added on Day 11)*
-
----
-
-## Weekly Progress
-
-- [x] Day 1 — Project setup & repo structure
-- [ ] Day 2 — Dataset EDA
-- [ ] Day 3 — Text preprocessing pipeline
-- [ ] Day 4 — TF-IDF + SVM baseline
-- [ ] Day 5 — Baseline error analysis
-- [ ] Day 6 — HuggingFace tokenization
-- [ ] Day 7 — Afro-XLM-R fine-tuning
-- [ ] Day 8 — Model evaluation & comparison
-- [ ] Day 9 — Error analysis & attention viz
-- [ ] Day 10 — Streamlit app
-- [ ] Day 11 — HuggingFace Spaces deployment
-- [ ] Day 12 — Model card & documentation
-- [ ] Day 13 — Final report & README polish
-- [ ] Day 14 — Final review & v1.0 release
+```
+ethiopian-fintech-analytics/
+├── data/
+│   ├── raw/              # Original datasets
+│   └── processed/        # Feature store (parquet)
+├── notebooks/
+│   ├── 01_EDA_credit_risk.ipynb
+│   ├── 03_feature_engineering.ipynb
+│   ├── 04_model_training.ipynb
+│   ├── 05_shap_explainability.ipynb
+│   └── 06_streamlit_dashboard.ipynb
+├── src/
+│   ├── data/             # Loaders and cleaners
+│   ├── features/         # Feature engineering
+│   ├── models/           # Training utilities
+│   └── api/              # FastAPI endpoint
+├── reports/              # Charts and figures
+├── docs/                 # Final report
+└── requirements.txt
+```
 
 ---
 
 ## How to Run
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/amharic-sentiment-analysis.git
-cd amharic-sentiment-analysis
-
-# 2. Create virtual environment
-python -m venv venv
-source venv/bin/activate
-
-# 3. Install dependencies
+# 1. Clone and install
+git clone https://github.com/yeezyyoba/ethiopian-fintech-analytics.git
+cd ethiopian-fintech-analytics
 pip install -r requirements.txt
 
-# 4. Run the Streamlit app
-streamlit run app/app.py
+# 2. Run the API
+uvicorn src.api.main:app --reload
+# Visit http://localhost:8000/docs for interactive API docs
+
+# 3. Run the dashboard
+streamlit run app/dashboard.py
 ```
+
+---
+
+## API Usage
+
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "RevolvingUtilizationOfUnsecuredLines": 0.75,
+    "age": 35,
+    "DebtRatio": 0.45,
+    "MonthlyIncome": 5000,
+    "NumberOfOpenCreditLinesAndLoans": 4,
+    "NumberRealEstateLoansOrLines": 1,
+    "delinquency_score": 0,
+    "debt_to_income": 2250,
+    "is_young_borrower": 0,
+    "is_senior_borrower": 0,
+    "high_utilization": 0,
+    "total_past_due": 0,
+    "has_delinquency": 0,
+    "has_dependents": 1
+  }'
+```
+
+**Response:**
+```json
+{
+  "default_probability": 0.0823,
+  "risk_tier": "Low Risk",
+  "prediction": "NO DEFAULT",
+  "top_risk_factors": ["No major risk factors identified"],
+  "model": "XGBClassifier"
+}
+```
+
+---
+
+## Weekly Progress
+
+- [x] Week 1 — Project setup & repo structure
+- [x] Week 2 — Exploratory Data Analysis
+- [x] Week 3 & 4 — Feature Engineering & SMOTE
+- [x] Week 5 — Model Training (XGBoost AUC-ROC 0.8842)
+- [x] Week 6 — Model Explainability (SHAP)
+- [x] Week 7 — Streamlit Dashboard
+- [x] Week 8 — Final Report & FastAPI Deployment
 
 ---
 
 ## Author
 
-**Eyob Nebyou**
-Computer Science Student, Addis Ababa University
+**Eyob Nebyou**  
+Computer Science Student, Addis Ababa University  
+Data Engineering Intern @ Habtech  
 [LinkedIn](https://linkedin.com/in/eyob-nebyou-2782b8395) | [GitHub](https://github.com/yeezyyoba)
 
 ---
