@@ -21,7 +21,7 @@ st.set_page_config(
 )
 
 # ── Constants ──────────────────────────────────────────────────
-MODEL_PATH = "models/best_transformer"
+MODEL_PATH = "yeezyyoba/amharic-sentiment-transformer"
 MAX_LENGTH = 72
 ID2LABEL   = {0: "negative", 1: "neutral", 2: "positive"}
 LABEL_EMOJI = {"positive": "😊 Positive", "negative": "😠 Negative", "neutral": "😐 Neutral"}
@@ -72,7 +72,7 @@ with st.spinner("Loading model..."):
         st.success("Model loaded successfully.")
     except Exception as e:
         st.error(f"Error loading model: {e}")
-        st.info("Make sure the model files are in models/best_transformer/")
+        st.info("Make sure the Hugging Face model repository is accessible.")
         st.stop()
 
 # Example buttons
