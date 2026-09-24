@@ -1,175 +1,189 @@
-# Ethiopian Fintech Analytics Platform
+# Amharic Sentiment Analysis with Afro-XLM-R
+
 ## Final Project Report
 
-**Author**: Eyob Nebyou  
-**Institution**: Addis Ababa University, CNCS  
-**Date**: August 2026  
-**GitHub**: https://github.com/yeezyyoba/ethiopian-fintech-analytics
+**Author**: Eyob Nebiyou
+**Institution**: Addis Ababa University, CNCS
+**Date**: September 2026
+**GitHub**: https://github.com/yeezyyoba/amharic-sentiment-analysis
 
 ---
 
 ## 1. Executive Summary
 
-This project builds an end-to-end credit risk prediction system for the Ethiopian
-digital finance ecosystem. Using 150,000 real customer records, we developed a
-machine learning pipeline that predicts loan default probability with an AUC-ROC
-of 0.8842 and a Recall of 0.8284 — meaning the model correctly identifies 82.8%
-of all actual defaulters.
+This project investigates sentiment classification for Amharic social media text using the AfriSenti Amharic dataset. The study establishes a TF-IDF + Logistic Regression baseline and compares it with a fine-tuned Afro-XLM-R transformer model.
 
-The system combines rigorous data science methodology with business-facing
-deliverables: a SHAP explainability analysis, an interactive Streamlit dashboard,
-and a REST API for real-time inference.
+The baseline achieves a test Macro F1 score of 0.4640. The fine-tuned Afro-XLM-R model achieves a mean Macro F1 of 0.5543 ± 0.0068 across three random seeds (42, 123, and 456), representing an improvement of 9.03 percentage points over the baseline.
+
+The project also includes exploratory data analysis, Amharic-specific preprocessing, tokenization analysis, error analysis, per-class evaluation, and qualitative inspection of transformer attention patterns.
 
 ---
 
 ## 2. Problem Statement
 
-Digital financial services in Ethiopia — mobile banking, microloans, mobile money —
-are growing rapidly. Two critical challenges face these platforms:
+Amharic is one of the major languages of Ethiopia and has a comparatively limited amount of publicly available NLP resources. Sentiment analysis for Amharic social media text can support applications such as public opinion analysis, customer feedback analysis, and social media monitoring.
 
-1. **Credit Risk**: How likely is a customer to default on a loan?
-2. **Fraud Detection**: Is a transaction fraudulent?
+The objective of this project is to evaluate how effectively a multilingual transformer model can classify Amharic tweets into three sentiment categories:
 
-Without predictive models, loan officers rely on manual assessment — slow,
-inconsistent, and unable to scale. This project automates that assessment.
+- Negative
+- Neutral
+- Positive
+
+The study compares transformer-based classification against a traditional TF-IDF-based machine learning baseline.
 
 ---
 
 ## 3. Dataset
 
+The project uses the Amharic subset of the AfriSenti dataset.
+
 | Property | Detail |
 |---|---|
-| Name | Give Me Some Credit |
-| Source | Kaggle |
-| Rows | 150,000 customers |
-| Features | 11 raw features |
-| Target | SeriousDlqin2yrs (binary default label) |
-| Default rate | 6.68% |
-| Class imbalance | 14:1 (non-default : default) |
+| Dataset | AfriSenti |
+| Language | Amharic (`amh`) |
+| Training samples | 5,984 |
+| Validation samples | 1,497 |
+| Test samples | 1,999 |
+| Classes | Negative, Neutral, Positive |
+
+The training split contains approximately 51.9% neutral, 25.9% negative, and 22.3% positive examples.
+
+The test split contains 1,337 negative, 438 positive, and 224 neutral examples.
 
 ---
 
 ## 4. Methodology
 
 ### 4.1 Exploratory Data Analysis
-- Identified 14:1 class imbalance requiring SMOTE
-- Found `RevolvingUtilizationOfUnsecuredLines` as top correlated feature (0.278)
-- Confirmed statistical significance with t-tests (p=0.0000 for age and income)
-- Identified under-25s as highest default risk group (11.73% rate)
 
-### 4.2 Feature Engineering
-Built 8 domain-specific features:
+The dataset was examined to understand:
 
-| Feature | Description |
-|---|---|
-| `delinquency_score` | Weighted sum of past-due events (90+ days × 3) |
-| `debt_to_income` | Monthly debt payment relative to income |
-| `is_young_borrower` | Flag for age < 30 |
-| `is_senior_borrower` | Flag for age ≥ 60 |
-| `high_utilization` | Flag for credit utilization > 80% |
-| `total_past_due` | Sum of all delinquency counts |
-| `has_delinquency` | Binary flag for any delinquency |
-| `has_dependents` | Binary flag for dependents > 0 |
+- Split sizes and class distributions
+- Common tokens and vocabulary patterns
+- Mixed-script text
+- URLs, mentions, and hashtags
+- Potentially ambiguous examples
 
-**Key finding**: `has_delinquency` (correlation 0.3144) became the strongest
-predictor — outperforming the original `RevolvingUtilizationOfUnsecuredLines`.
+Manual inspection of selected examples suggests that some neutral examples may have ambiguous or debatable sentiment labels.
 
-### 4.3 Class Imbalance — SMOTE
-Applied SMOTE (Synthetic Minority Oversampling Technique) to fix the 14:1
-imbalance. Dataset grew from 149,954 to 279,862 samples (1:1 balance).
-Training used SMOTE-balanced data; evaluation used the original distribution.
+### 4.2 Preprocessing
 
-### 4.4 SQL Analysis
-Built an in-memory SQLite database to explore business insights:
-- Combined delinquency + high utilization → 36.82% default rate
-- Default rate by age group confirmed EDA findings
+The preprocessing pipeline includes:
 
----
+- Removal of URLs, mentions, and hashtags
+- Normalization of selected Ethiopic characters
+- Lowercasing of Latin characters
+- Removal of duplicate cleaned tweets within each split
+- Removal of invalid or missing entries where applicable
 
-## 5. Model Results
+The resulting processed splits contain 5,968 training samples, 1,496 validation samples, and 1,999 test samples.
 
-| Model | AUC-ROC | F1 | Precision | Recall |
-|---|---|---|---|---|
-| Logistic Regression | 0.8500 | 0.3160 | 0.1990 | 0.7677 |
-| Random Forest | 0.8714 | 0.4356 | 0.3949 | 0.4855 |
-| LightGBM | 0.8727 | 0.3692 | 0.5710 | 0.2728 |
-| **XGBoost** | **0.8842** | 0.3326 | 0.2081 | **0.8284** |
+### 4.3 TF-IDF Baseline
 
-**Best model: XGBoost**
+A traditional TF-IDF representation was used with several classical classifiers. The vectorizer was fitted only on the training data and then applied to the validation and test sets.
 
-XGBoost achieved the highest AUC-ROC (0.8842) and the best Recall (0.8284).
-In credit risk, missing a defaulter (false negative) costs more than a false
-alarm — so Recall is the priority metric. Only 1,720 defaulters were missed
-out of 10,023.
+Logistic Regression achieved the strongest baseline validation performance and was used as the primary baseline.
 
----
+Its test Macro F1 score was:
 
-## 6. Model Explainability — SHAP
+**0.4640**
 
-SHAP (SHapley Additive exPlanations) was used to explain why the model
-makes each prediction.
+Macro F1 was selected as the primary evaluation metric because it gives equal importance to each sentiment class despite class imbalance.
 
-**Global feature importance (SHAP ranking):**
-1. `has_delinquency` — SHAP value 1.4215 (dominant predictor)
-2. `high_utilization` — SHAP value 0.5738
-3. `delinquency_score`
-4. `RevolvingUtilizationOfUnsecuredLines`
-5. `age`
+### 4.4 Transformer Fine-Tuning
 
-**Business translation — three questions the model asks:**
-1. *Has this customer missed payments before?* (`has_delinquency`, `delinquency_score`)
-2. *Are they overextended on credit?* (`high_utilization`, `RevolvingUtilization`)
-3. *Do they have capacity to repay?* (`MonthlyIncome`, `debt_to_income`, `age`)
+The transformer approach uses Afro-XLM-R, a multilingual model designed for African languages.
 
-This matches exactly what experienced loan officers assess manually — the model
-has learned real credit risk intuition from data.
+The model was fine-tuned for three-class Amharic sentiment classification. Model selection was performed using the validation set, with Macro F1 as the primary metric.
+
+The final multi-seed evaluation used seeds:
+
+- 42
+- 123
+- 456
+
+The recorded test Macro F1 scores were:
+
+| Seed | Macro F1 |
+|---|---:|
+| 42 | 0.5620 |
+| 123 | 0.5553 |
+| 456 | 0.5455 |
+| **Mean** | **0.5543** |
+| **Std.** | **0.0068** |
 
 ---
 
-## 7. Deployment
+## 5. Results
 
-### Streamlit Dashboard
-Interactive dashboard with:
-- Credit risk overview and KPI cards
-- Default rate by customer segment
-- SHAP feature importance visualization
-- Individual customer risk scoring
+The transformer improves over the TF-IDF baseline on the test set.
 
-### FastAPI REST Endpoint
-```
-POST /predict
-Input:  Customer financial features (JSON)
-Output: Default probability, risk tier, top risk factors
-```
+| Model | Test Macro F1 |
+|---|---:|
+| TF-IDF + Logistic Regression | 0.4640 |
+| Afro-XLM-R | 0.5543 ± 0.0068 |
+
+The mean improvement over the baseline is **9.03 percentage points**.
+
+The seed-42 transformer evaluation also provides a detailed per-class analysis and confusion matrix.
+
+---
+
+## 6. Error Analysis
+
+Error analysis was conducted to examine cases where the baseline and transformer models succeed or fail.
+
+On the test set:
+
+- Both models were correct on 750 examples.
+- The transformer was correct while the baseline was incorrect on 474 examples.
+- The baseline was correct while the transformer was incorrect on 249 examples.
+- Both models were incorrect on 526 examples.
+
+The analysis indicates that sentiment classification remains challenging for examples containing ambiguous language, contextual sentiment, and cases where sentiment cannot be identified from isolated lexical cues.
+
+The transformer also improves on several classes where the TF-IDF baseline makes substantial errors, although errors remain across all three sentiment categories.
+
+---
+
+## 7. Attention Visualization
+
+Selected examples were inspected using token-level attention patterns from the final transformer layer, averaged across attention heads.
+
+In the selected negative examples, higher attention was observed around words such as ወጠጤ and ሽፍታ. In selected positive examples, attention was distributed across words such as ምህረት and በረከት.
+
+These visualizations are illustrative of attention patterns in the selected examples and should not be interpreted as definitive explanations of the model's predictions.
 
 ---
 
 ## 8. Limitations
 
-- Dataset is US-based (Give Me Some Credit) — Ethiopian-specific data would
-  improve relevance
-- Model evaluated on historical data — performance on future data may differ
-- Label noise: some neutral labels may be misclassified
-- Fairness analysis shows higher false positive rates for young borrowers
+Several limitations should be considered:
+
+- The dataset is relatively small compared with datasets available for high-resource languages.
+- The dataset contains class imbalance, particularly in the test split.
+- Some examples may contain ambiguous or debatable sentiment labels.
+- Evaluation is based on a single publicly available dataset and may not represent all forms of contemporary Amharic social media text.
+- Attention visualizations are based on selected examples and should not be treated as definitive model explanations.
+- The reported multi-seed results reflect three seeds and may vary with different training configurations or hardware environments.
 
 ---
 
 ## 9. Conclusion
 
-This project demonstrates a complete, production-ready credit risk pipeline —
-from raw data through feature engineering, model training, explainability, and
-deployment. The XGBoost model achieves AUC-ROC of 0.8842 with 82.8% recall
-on defaulters, and SHAP analysis reveals that past delinquency history is by
-far the most powerful signal.
+This project evaluates Amharic sentiment classification using both a traditional TF-IDF baseline and a fine-tuned Afro-XLM-R transformer.
 
-The methodology, codebase, and findings are directly applicable to Ethiopian
-fintech platforms seeking to automate credit decisioning at scale.
+The TF-IDF + Logistic Regression baseline achieves a test Macro F1 of 0.4640, while Afro-XLM-R achieves a mean Macro F1 of 0.5543 ± 0.0068 across three seeds.
+
+The results demonstrate the potential of multilingual transformer models for Amharic sentiment analysis while also highlighting the challenges associated with limited data, class imbalance, and ambiguous social media language.
+
+The repository provides the complete experimental workflow, including data exploration, preprocessing, baseline modeling, transformer fine-tuning, evaluation, and error analysis.
 
 ---
 
 ## 10. References
 
-- Kaggle: Give Me Some Credit Dataset
-- Chen, T. & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System
-- Lundberg, S. & Lee, S. (2017). A Unified Approach to Interpreting Model Predictions (SHAP)
-- Chawla, N. et al. (2002). SMOTE: Synthetic Minority Over-sampling Technique
+- AfriSenti dataset: Amharic sentiment analysis benchmark.
+- Afro-XLM-R: Multilingual transformer model for African languages.
+- TF-IDF: Term Frequency–Inverse Document Frequency representation.
+- Logistic Regression: Classical supervised classification baseline.

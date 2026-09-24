@@ -2,27 +2,21 @@
 
 ## Dataset: AfriSenti-SemEval 2023 — Amharic
 
-### Option 1: HuggingFace Datasets (Recommended)
+## Loading the Dataset
 The dataset loads automatically in the notebooks using the HuggingFace datasets library.
 No manual download needed — just run the notebook cells.
 
 ```python
 from datasets import load_dataset
-dataset = load_dataset("shmuhammad/AfriSenti-twitter-sentiment", "amh")
+dataset = load_dataset("masakhane/afrisenti", "amh")
 ```
-
-### Option 2: Manual Download
-- URL: https://huggingface.co/datasets/shmuhammad/AfriSenti-twitter-sentiment
-- Click "Files and versions" tab
-- Download the `amh/` folder files
-- Place in `data/raw/amharic/`
 
 ### Dataset Structure
 ```
 Splits:
-  - train: ~5,985 samples
-  - validation: ~595 samples  
-  - test: ~2,000 samples
+  - train: 5,984 samples
+  - validation: 1,497 samples
+  - test: 1,999 samples
 
 Labels:
   - positive
@@ -33,9 +27,20 @@ Language: Amharic (Ethiopic script — ግዕዝ)
 Domain: Twitter/social media
 ```
 
-### Label Distribution (approximate)
-| Label | Train | Validation | Test |
-|---|---|---|---|
-| Positive | ~45% | ~45% | ~45% |
-| Negative | ~30% | ~30% | ~30% |
-| Neutral | ~25% | ~25% | ~25% |
+### Label Distribution
+
+The training split contains approximately:
+
+| Label | Percentage |
+|---|---:|
+| Neutral | 51.9% |
+| Negative | 25.9% |
+| Positive | 22.3% |
+
+The test split contains:
+
+| Label | Samples |
+|---|---:|
+| Negative | 1,337 |
+| Positive | 438 |
+| Neutral | 224 |
