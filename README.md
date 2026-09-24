@@ -256,7 +256,7 @@ The purpose of the analysis is to identify **patterns in model behavior**, rathe
 
 See:
 
-`notebooks/08_error_analysis.ipynb`
+`notebooks/08_error_analysis_transformer.ipynb`
 
 ---
 
@@ -322,7 +322,7 @@ amharic-sentiment-analysis/
 │   ├── 05_*.ipynb
 │   ├── 06_transformer_finetuning.ipynb
 │   ├── 07_evaluation.ipynb
-│   └── 08_error_analysis.ipynb
+│   └── 08_error_analysis_transformer.ipynb
 │
 ├── reports/
 │
@@ -355,7 +355,7 @@ source .venv/bin/activate
 On Windows:
 
 ```bash
-.venvScriptsactivate
+.venv\Scripts\activate
 ```
 
 ### 3. Install Dependencies
