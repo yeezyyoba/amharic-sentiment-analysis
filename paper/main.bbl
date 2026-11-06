@@ -1,0 +1,103 @@
+\begin{thebibliography}{12}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Alabi et~al.(2022)Alabi, Adelani, Mosbach, and
+  Klakow}]{alabi-etal-2022-adapting}
+J.~O. Alabi, D.~I. Adelani, M.~Mosbach, and D.~Klakow. 2022.
+\newblock Adapting pre-trained language models to {A}frican languages via
+  multilingual adaptive fine-tuning.
+\newblock In \emph{Proceedings of the 29th International Conference on
+  Computational Linguistics (COLING 2022)}.
+
+\bibitem[{Alemayehu et~al.(2023)Alemayehu, Meshesha, and
+  Abate}]{alemayehu-etal-2023-amharic}
+F.~Alemayehu, M.~Meshesha, and J.~Abate. 2023.
+\newblock \href {https://doi.org/10.1038/s41598-023-45137-9} {{A}mharic
+  political sentiment analysis using deep learning approaches}.
+\newblock \emph{Scientific Reports}, 13:17982.
+
+\bibitem[{Belay et~al.(2021)Belay, Ayele, Gelaye, Yimam, and
+  Biemann}]{belay-etal-2021-impacts}
+T.~D. Belay, A.~A. Ayele, G.~Gelaye, S.~M. Yimam, and C.~Biemann. 2021.
+\newblock Impacts of homophone normalization on semantic models for {A}mharic.
+\newblock In \emph{2021 International Conference on Information and
+  Communication Technology for Development for Africa (ICT4DA)}, pages
+  101--106. IEEE.
+
+\bibitem[{Belay et~al.(2022)Belay, Tonja, Kolesnikova, Yimam, Ayele, Haile,
+  Sidorov, and Gelbukh}]{belay-etal-2022-effect}
+T.~D. Belay, A.~L. Tonja, O.~Kolesnikova, S.~M. Yimam, A.~A. Ayele, S.~B.
+  Haile, G.~Sidorov, and A.~Gelbukh. 2022.
+\newblock The effect of normalization for bi-directional {A}mharic-{E}nglish
+  neural machine translation.
+\newblock In \emph{2022 International Conference on Information and
+  Communication Technology for Development for Africa (ICT4DA)}, pages 84--89.
+  IEEE.
+
+\bibitem[{Conneau et~al.(2020)Conneau, Khandelwal, Goyal, Chaudhary, Wenzek,
+  Guzm{\'a}n, Grave, Ott, Zettlemoyer, and
+  Stoyanov}]{conneau-etal-2020-unsupervised}
+A.~Conneau, K.~Khandelwal, N.~Goyal, V.~Chaudhary, G.~Wenzek, F.~Guzm{\'a}n,
+  E.~Grave, M.~Ott, L.~Zettlemoyer, and V.~Stoyanov. 2020.
+\newblock Unsupervised cross-lingual representation learning at scale.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics (ACL 2020)}.
+
+\bibitem[{Eberhard et~al.(2020)Eberhard, Simons, and
+  Fennig}]{eberhard-etal-2020-ethnologue}
+D.~M. Eberhard, G.~F. Simons, and C.~D. Fennig, editors. 2020.
+\newblock \emph{Ethnologue: Languages of the World}, 23rd edition.
+\newblock SIL International.
+
+\bibitem[{Kudo and Richardson(2018)}]{kudo-richardson-2018-sentencepiece}
+T.~Kudo and J.~Richardson. 2018.
+\newblock {S}entence{P}iece: A simple and language independent subword
+  tokenizer and detokenizer for neural text processing.
+\newblock In \emph{Proceedings of the 2018 Conference on Empirical Methods in
+  Natural Language Processing: System Demonstrations}, pages 66--71.
+
+\bibitem[{Muhammad et~al.(2023{\natexlab{a}})Muhammad, Abdulmumin, Ayele
+  et~al.}]{muhammad-etal-2023-afrisenti}
+S.~H. Muhammad, I.~Abdulmumin, A.~A. Ayele, et~al. 2023{\natexlab{a}}.
+\newblock {A}fri{S}enti: A {T}witter sentiment analysis benchmark for {A}frican
+  languages.
+\newblock In \emph{Proceedings of the 2023 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP 2023)}.
+
+\bibitem[{Muhammad et~al.(2023{\natexlab{b}})Muhammad, Abdulmumin, Yimam,
+  Adelani, Ahmad, Ousidhoum, Ayele, Mohammad, Beloucif, and
+  Ruder}]{muhammad-etal-2023-semeval}
+S.~H. Muhammad, I.~Abdulmumin, S.~M. Yimam, D.~I. Adelani, I.~S. Ahmad,
+  N.~Ousidhoum, A.~A. Ayele, S.~M. Mohammad, M.~Beloucif, and S.~Ruder.
+  2023{\natexlab{b}}.
+\newblock {S}em{E}val-2023 task 12: Sentiment analysis for {A}frican languages
+  ({A}fri{S}enti-{S}em{E}val).
+\newblock In \emph{Proceedings of the 17th International Workshop on Semantic
+  Evaluation (SemEval-2023)}, pages 2319--2337.
+
+\bibitem[{Nigatu et~al.(2025)Nigatu, Tonja, Ademtew, Alemayehu, Abadi, Belay,
+  and Yimam}]{nigatu-etal-2025-case}
+H.~H. Nigatu, A.~L. Tonja, H.~B. Ademtew, H.~M. Alemayehu, N.~H. Abadi, T.~D.
+  Belay, and S.~M. Yimam. 2025.
+\newblock A case against implicit standards: Homophone normalization in machine
+  translation for languages that use the {G}e'ez script.
+\newblock In \emph{Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP 2025)}, pages 10309--10320.
+
+\bibitem[{Ogueji et~al.(2021)Ogueji, Zhu, and Lin}]{ogueji-etal-2021-small}
+K.~Ogueji, Y.~Zhu, and J.~Lin. 2021.
+\newblock Small data? no problem! exploring the viability of pretrained
+  multilingual language models for low-resourced languages.
+\newblock In \emph{Proceedings of the 1st Workshop on Multilingual
+  Representation Learning}.
+
+\bibitem[{Tonja et~al.(2024)Tonja, Azime, Belay
+  et~al.}]{tonja-etal-2024-ethiollm}
+A.~L. Tonja, I.~A. Azime, T.~D. Belay, et~al. 2024.
+\newblock {E}thio{LLM}: Multilingual large language models for {E}thiopian
+  languages with task evaluation.
+\newblock In \emph{Proceedings of the 2024 Joint International Conference on
+  Computational Linguistics, Language Resources and Evaluation (LREC-COLING
+  2024)}, pages 6341--6352.
+
+\end{thebibliography}

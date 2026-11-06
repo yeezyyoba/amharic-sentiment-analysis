@@ -1,0 +1,30 @@
+% Compile with XeLaTeX:  latexmk -xelatex main.tex
+\documentclass[11pt]{article}
+\usepackage[preprint]{acl}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+\newfontfamily\ethiopicfont{AbyssinicaSIL-Regular.ttf}[Path=./, Scale=MatchLowercase, BoldFont=AbyssinicaSIL-Regular.ttf, BoldFeatures={FakeBold=2}]
+\newcommand{\am}[1]{{\ethiopicfont #1}}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+
+\title{Amharic Sentiment Analysis Using Ethiopic Character Normalization\\and Multilingual Transformer Fine-tuning}
+
+\author{Eyob Nebyou \\
+  Department of Computer Science, College of Natural and Computational Sciences \\
+  Addis Ababa University, Addis Ababa, Ethiopia \\
+  \texttt{eyobnebyou10@gmail.com}}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\input{body}
+
+\bibliography{references}
+
+\end{document}
