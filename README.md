@@ -2,12 +2,31 @@
 
 A research-oriented study of sentiment classification for Amharic social-media text using the AfriSenti Amharic dataset, Ethiopic-script normalization, classical TF-IDF baselines, and fine-tuning of Afro-XLM-R.
 
+## 📄 Paper
+
+**Amharic Sentiment Analysis Using Ethiopic Character Normalization and Multilingual Transformer Fine-tuning**
+Eyob Nebyou, Addis Ababa University (2026). Preprint. DOI: [10.5281/zenodo.24020322](https://doi.org/10.5281/zenodo.24020322)
+
+The paper source (LaTeX), figures and PDF are in [`paper/`](paper/). The fine-tuned seed-42 model is on Hugging Face: [`yeezyyoba/amharic-sentiment-transformer`](https://huggingface.co/yeezyyoba/amharic-sentiment-transformer).
+
+```bibtex
+@misc{nebyou2026amharic,
+  title     = {Amharic Sentiment Analysis Using Ethiopic Character Normalization and Multilingual Transformer Fine-tuning},
+  author    = {Nebyou, Eyob},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.24020322},
+  url       = {https://doi.org/10.5281/zenodo.24020322}
+}
+```
+
 ## 🚀 Live Demo
 
 **Try the model:** [Amharic Sentiment Analysis — Live Demo](https://amharic-sentiment-analysis.streamlit.app/)
 
 Enter Amharic text and see the model's predicted sentiment and class probabilities.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24020322.svg)](https://doi.org/10.5281/zenodo.24020322)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-ee4c2c?style=flat-square&logo=pytorch)](https://pytorch.org/)
 [![Transformers](https://img.shields.io/badge/HuggingFace-Transformers-yellow?style=flat-square&logo=huggingface)](https://huggingface.co/docs/transformers)
